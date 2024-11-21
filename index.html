@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Circle Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+    #gameArea {
+      width: 500px;
+      height: 500px;
+      border: 2px solid #000;
+      position: relative;
+      background-color: #fff;
+      overflow: hidden;
+    }
+    .circle {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ff5733;
+    }
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="gameArea">
+    <div id="score">Score: 0</div>
+  </div>
+
+  <script>
+    let score = 0;
+    const gameArea = document.getElementById('gameArea');
+    const scoreDisplay = document.getElementById('score');
+
+    function createCircle() {
+      const circle = document.createElement('div');
+      circle.classList.add('circle');
+
+      const maxX = gameArea.offsetWidth - 50;
+      const maxY = gameArea.offsetHeight - 50;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      circle.style.left = `${randomX}px`;
+      circle.style.top = `${randomY}px`;
+
+      gameArea.appendChild(circle);
+
+      circle.addEventListener('click', () => {
+        score++;
+        scoreDisplay.textContent = `Score: ${score}`;
+        gameArea.removeChild(circle);
+        createCircle();
+      });
+    }
+
+    createCircle();
+  </script>
+
+</body>
+</html>
